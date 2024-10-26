@@ -11,7 +11,7 @@ class Strategy():
         self.my_head_pos_2d = self.robot_model.loc_head_position[:2]
         self.player_unum = self.robot_model.unum
         self.mypos = (world.teammates[self.player_unum-1].state_abs_pos[0],world.teammates[self.player_unum-1].state_abs_pos[1])
-       
+
         self.side = 1
         if world.team_side_is_left:
             self.side = 0

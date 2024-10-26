@@ -227,7 +227,7 @@ class Agent(Base_Agent):
         else:
             drawer.clear("status")
 
-        formation_positions = GenerateBasicFormation()
+        formation_positions = GenerateBasicFormation(strategyData.ball_2d, strategyData.opponent_positions)
         point_preferences = role_assignment(strategyData.teammate_positions, formation_positions)
         strategyData.my_desired_position = point_preferences[strategyData.player_unum]
         strategyData.my_desried_orientation = strategyData.GetDirectionRelativeToMyPositionAndTarget(strategyData.my_desired_position)
