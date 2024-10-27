@@ -208,6 +208,7 @@ class Agent(Base_Agent):
 
 
         
+        
 
 
 
@@ -250,8 +251,9 @@ class Agent(Base_Agent):
 
 
 
-        if strategyData.active_player_unum == strategyData.robot_model.unum: # I am the active player 
-            target = pass_reciever_selector(strategyData.player_unum, strategyData.teammate_positions, (15,0))
+        if strategyData.active_player_unum == strategyData.robot_model.unum: # I am the active player
+            target = pass_reciever_selector(strategyData.active_player_unum - 1, strategyData.teammate_positions, (15,0))
+            print(f"Target: {target}")
             drawer.line(strategyData.mypos, target, 2,drawer.Color.red,"pass line")
             return self.kickTarget(strategyData,strategyData.mypos,target)
 
