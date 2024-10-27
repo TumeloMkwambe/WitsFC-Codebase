@@ -153,15 +153,18 @@ def pass_reciever_selector(player_unum, teammate_positions, final_target):
     #-----------------------------------------------------------#
 
     # Example
-    pass_reciever_unum = player_unum + 1                  #This starts indexing at 1, therefore player 1 wants to pass to player 2
-
-    close_enough = np.linalg.norm(teammate_positions[player_unum - 1] - np.array([15, 0])) <= 7
-
-    if close_enough:
-        target = (15, 0)
-    elif pass_reciever_unum != 12:
-        target = teammate_positions[pass_reciever_unum-1] #This is 0 indexed so we actually need to minus 1
+    if np.linalg.norm(teammate_positions[player_unum] - np.array([15, 0])) <= 6:
+        return (15,0)
     else:
-        target = final_target
-    
-    return target
+        teammate_positions = np.array(teammate_positions)
+        teammate_positions_x = teammate_positions[:, 0]
+        teammate_positions_x = teammate_positions_x - teammate_positions_x[player_unum]
+        smallest_positive = 100
+        closest_teammate = -1
+        for i in range(len(teammate_positions_x)):
+            if(teammate_positions_x[i] > 0 and teammate_positions_x[i] < smallest_positive):
+                smallest_positive = teammate_positions_x[i]
+                closest_teammate = i
+        if closest_teammate == -1:
+            return final_target
+        return teammate_positions[closest_teammate]
