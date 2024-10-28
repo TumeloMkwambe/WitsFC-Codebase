@@ -91,10 +91,11 @@ class Strategy():
                 if not teammate_pos is None:
 
                     distance = np.sum((teammate_pos - point_preferences[i]) **2)
-                    if(distance > 0.3):
+                    if(distance > 1.3):
                         is_formation_ready = False
 
         return is_formation_ready
+
 
     def GetDirectionRelativeToMyPositionAndTarget(self,target):
         target_vec = target - self.my_head_pos_2d

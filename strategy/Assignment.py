@@ -145,6 +145,22 @@ def role_assignment(teammate_positions, formation_positions):
         point_preferences[i+1] = np.array([formation_positions[player_assignment][0], formation_positions[player_assignment][1]])
     return point_preferences
 
+def closestPlayer(player_unum, teammate_positions, final_target):
+    teammate_positions = np.array(teammate_positions)
+    teammate_positions_x = teammate_positions[:, 0]
+    teammate_positions_x = teammate_positions_x - teammate_positions_x[player_unum]
+    closest_player = 100
+    closest_player_index = -1
+    for i in range(len(teammate_positions_x)):
+        if(i != player_unum and teammate_positions_x[i] > 0 and np.linalg.norm(teammate_positions[player_unum] - teammate_positions[i]) < closest_player):
+            closest_player = np.linalg.norm(teammate_positions[player_unum] - teammate_positions[i])
+            closest_player_index = i
+    if closest_player_index != -1:
+        if(player_unum == 8):
+            print(f"Target: {teammate_positions[closest_player_index]}")
+        return teammate_positions[closest_player_index]
+    return final_target
+
 
 def pass_reciever_selector(player_unum, teammate_positions, final_target):
     
@@ -156,15 +172,4 @@ def pass_reciever_selector(player_unum, teammate_positions, final_target):
     if np.linalg.norm(teammate_positions[player_unum] - np.array([15, 0])) <= 6:
         return (15,0)
     else:
-        teammate_positions = np.array(teammate_positions)
-        teammate_positions_x = teammate_positions[:, 0]
-        teammate_positions_x = teammate_positions_x - teammate_positions_x[player_unum]
-        smallest_positive = 100
-        closest_teammate = -1
-        for i in range(len(teammate_positions_x)):
-            if(teammate_positions_x[i] > 0 and teammate_positions_x[i] < smallest_positive):
-                smallest_positive = teammate_positions_x[i]
-                closest_teammate = i
-        if closest_teammate == -1:
-            return final_target
-        return teammate_positions[closest_teammate]
+        return closestPlayer(player_unum, teammate_positions, final_target)

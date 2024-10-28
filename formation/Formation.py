@@ -2,13 +2,13 @@ import numpy as np
 
 def GenerateBasicFormation(ball_position, opposition_team):
 
-    if ball_position[0] < -5:
+    if ball_position[0] < -8:
         formation = [
         np.array([-13, 0]),    # Goalkeeper
-        opposition_team[10],  # Left Defender
-        opposition_team[9],   # Center Back Left
-        opposition_team[8],    # Center Back Right
-        opposition_team[7],   # Right Defender
+        np.array([-10, -1]),  # Left Defender
+        np.array([-13, 0]),   # Center Back Left
+        np.array([-13, 1]),    # Center Back Right
+        np.array([-4, 1.5]),   # Right Defender
         np.array([3, 2]),    # Left Midfielder
         np.array([5, -2]),    # Center Midfielder Left
         np.array([10, -1]),     # Center Midfielder Right
